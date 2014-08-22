@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <security:global-method-security secured-annotations="enabled" />
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/buy" access="ROLE_PRIVATE"
+			requires-channel="https"/>
+			
+			<security:intercept-url pattern="/**" requires-channel="https"/>
+			
+		<security:form-login authentication-failure-url="/loginfailed"  />
+		<security:logout logout-success-url="/logout" />
+		
+		
+	</security:http>
+	
+	
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user authorities="ROLE_PRIVATE" name="Marija"
+					password="mp" />
+					
+					<security:user authorities="ROLE_ADMIN" name="admin"
+					password="admin" />
+					
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>
